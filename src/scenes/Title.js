@@ -4,4 +4,8 @@ class Title extends Phaser.Scene {
     }
 
 
+    create() {
+        this.title = this.add.text(10,10, "Title screen")
+    }
+
 }
