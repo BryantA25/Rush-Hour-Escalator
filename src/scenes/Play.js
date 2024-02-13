@@ -10,7 +10,7 @@ class Play extends Phaser.Scene {
 
     create() {
         //all temporary, delete later
-        this.title = this.add.text(10,10, "Play screen")
+        //this.title = this.add.text(10,10, "Play screen")
         //this.guide = this.add.text (10,30, "Press (UP) to go back to title")
         //keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
 
@@ -60,7 +60,7 @@ class Play extends Phaser.Scene {
             //console.log("lose")
             this.gameover = true
             //this.add.text(config.width/2, config.hight/2, 'GAME OVER', scoreConfig).setOrigin(0.5)
-            this.gameoverGraphic = this.add.tileSprite(config.width/2, config.hight/2, 200, 100, 'gameover-graphic').setOrigin(0.5)
+            this.gameoverGraphic = this.add.tileSprite(320, 200, 200, 100, 'gameover-graphic').setOrigin(0.5)
 
         })
 
