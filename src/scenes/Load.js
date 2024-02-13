@@ -9,8 +9,14 @@ class Load extends Phaser.Scene {
             frameWidth: 112,
             frameHeight: 180,
         })
+        this.load.spritesheet('shopper', 'bottom.png', {
+            frameWidth: 112,
+            frameHeight: 180,
+        })
         this.load.image('escalator' , 'escalator.png')      //load background
         this.load.image('border', 'border.png')
+        this.load.image('bottom', 'bottom.png')
+        this.load.image('gameover-graphic', 'gameover.png')
     }
 
     create() {
