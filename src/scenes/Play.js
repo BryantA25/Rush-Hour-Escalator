@@ -23,6 +23,19 @@ class Play extends Phaser.Scene {
         //keyboard input setup
         this.keys = this.input.keyboard.createCursorKeys()
 
+        //add border with physics
+        let borderLeft = this.physics.add.sprite(0, 0, 'border').setOrigin(0,0)
+        borderLeft.body.setImmovable(true)
+
+        let borderRight = this.physics.add.sprite(0, 0, 'border').setOrigin(0, 0)
+        borderRight.setX(config.width - borderRight.width)
+        borderRight.body.setImmovable(true)
+
+        this.borders = this.add.group([borderLeft, borderRight])
+
+        //player border collision
+        this.physics.add.collider(this.player, this.borders)
+
     }
 
     update() {

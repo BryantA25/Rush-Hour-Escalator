@@ -10,6 +10,7 @@ class Load extends Phaser.Scene {
             frameHeight: 180,
         })
         this.load.image('escalator' , 'escalator.png')      //load background
+        this.load.image('border', 'border.png')
     }
 
     create() {
@@ -40,7 +41,7 @@ class Load extends Phaser.Scene {
         })
 
         //obsticle animations
-        
+
         
         this.scene.start('titleScene')
     }
