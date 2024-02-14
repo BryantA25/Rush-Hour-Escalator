@@ -14,6 +14,8 @@ class Play extends Phaser.Scene {
         //this.guide = this.add.text (10,30, "Press (UP) to go back to title")
         //keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
 
+        this.currentTime = 0
+
         //add background
         this.escalator = this.add.tileSprite(0, 0, 640, 960, 'escalator').setOrigin(0, 0)
 
@@ -42,34 +44,44 @@ class Play extends Phaser.Scene {
         //player border collision
         this.physics.add.collider(this.player, this.borders)
 
-        let scoreConfig = {
+        let textConfig = {
             //fontFamily: 'Courier',
-            fontSize: '50px',
+            fontSize: '30px',
             //color: '',
             align: 'right',
             padding: {
                 top: 5,
                 bottom: 5
             },
-            fixedWidth: 100
+            //fixedWidth: 100
         }
+
+        //timer setup
+        this.gameTimer = this.time.addEvent({
+            delay: 1000,
+            callback: this.addTime,
+            callbackScope: this,
+            loop: true
+        })
+
+        this.timeDisplay = this.add.text(10, 10, "Elapsed Time: "+this.currentTime, textConfig)
+
 
         //player and bottom collision
         this.physics.add.collider(this.player, bottom, () => {
             //game over
             //console.log("lose")
             this.gameover = true
-            //this.add.text(config.width/2, config.hight/2, 'GAME OVER', scoreConfig).setOrigin(0.5)
+            this.player.destroy()
+            this.gameTimer.destroy()
+            this.add.text(320, 400, 'You lasted '+this.currentTime+' seconds', textConfig).setOrigin(0.5)
+            this.add.text(320, 500, 'Press (R) to restart', textConfig).setOrigin(0.5)
+            this.add.text(320, 575, 'Press (M) to return to main menu', textConfig).setOrigin(0.5)
             this.gameoverGraphic = this.add.tileSprite(320, 200, 200, 100, 'gameover-graphic').setOrigin(0.5)
-
         })
 
-        
-
-    
-        
-
     }
+
 
     update() {
         /*
@@ -81,6 +93,7 @@ class Play extends Phaser.Scene {
         if(!this.gameover) {
             this.playerFSM.step()
             this.player.y += this.speed
+            this.timeDisplay.text = "Elapsed Time: "+this.currentTime
         }
 
         if (this.gameover && Phaser.Input.Keyboard.JustDown(keyRESET)) {
@@ -92,5 +105,14 @@ class Play extends Phaser.Scene {
         }
 
         this.escalator.tilePositionY -= this.speed
+    }
+
+    addTime() {
+        this.currentTime += 1
+        //console.log("added time")
+
+        //make things happen after certain tiime
+
+
     }
 }
