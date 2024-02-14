@@ -101,7 +101,8 @@ class HurtState extends State {
         //recovery timer
         scene.time.delayedCall(player.hurtTimer, () => {
             player.hurtBool = false
-            this.StateMachine.transition('idle')
+            this.stateMachine.transition('idle')
+            return
         })
     }
 }

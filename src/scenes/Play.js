@@ -4,15 +4,10 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-        //all temporary, delete later
-        //this.title = this.add.text(10,10, "Play screen")
-        //this.guide = this.add.text (10,30, "Press (UP) to go back to title")
-        //keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
-
         //important values
-        this.speed = 3
+        this.speed = 3          //scroll speed of escalator, obstacles, and the player
         this.gameover = false
-        this.currentTime = 0
+        this.currentTime = 0    //used for timer display and obstacle events
 
         //add background
         this.escalator = this.add.tileSprite(0, 0, 640, 960, 'escalator').setOrigin(0, 0)
@@ -70,7 +65,8 @@ class Play extends Phaser.Scene {
             //game over
             //console.log("lose")
             this.gameover = true
-            this.player.destroy()
+            
+            //this.player.destroy()
             this.gameTimer.destroy()
             this.add.text(320, 400, 'You lasted '+this.currentTime+' seconds', textConfig).setOrigin(0.5)
             this.add.text(320, 500, 'Press (R) to restart', textConfig).setOrigin(0.5)
@@ -95,9 +91,9 @@ class Play extends Phaser.Scene {
     }
 
     //activate hurt state in player
-    obstacleCollision(){
+    obstacleCollision(player){
         console.log("Player collision with obstacle")
-        //this.player.hurtBool = false
+        player.toggleHurt()    //Type error: cannot read properties of undefned 
 
     }
 
