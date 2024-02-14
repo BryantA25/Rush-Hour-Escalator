@@ -10,15 +10,20 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         //custom properties
         this.playerVelocity = 500   // in pixels
         this.hurtTimer = 250        // in ms
-        //this.test = false
+        this.hurtBool = false
 
         //States
         scene.playerFSM = new StateMachine('idle', {
             idle: new IdleState(),
             move: new MoveState(),
-            //hurt: new HurtState(),
+            hurt: new HurtState(),
 
         }, [scene, this])
+    }
+
+    toggleHurt() {
+        this.hurtBool = !this.hurtBool
+        console.log("toggled hurt to "+this.hurtBool)
     }
 }
 
@@ -34,11 +39,12 @@ class IdleState extends State {
         //use deconstructing to make a local copy of the keyboard object
         const {left, right, up, down} = scene.keys
     
-        /*
-        if(test) {
+        //transition to hurt state
+        if(player.hurtBool) {
             this.stateMachine.transition('hurt')
+            return
         }
-        */
+        
 
         //transition to move if pressing a movement key
         if(left.isDown || right.isDown || up.isDown || down.isDown) {
@@ -58,13 +64,11 @@ class MoveState extends State {
             return
         }
 
-        //transition to hurt
-        /*
-        if(hurt conditon) {
+        //transition to hurt state
+        if(player.hurtBool) {
             this.stateMachine.transition('hurt')
             return
         }
-        */
 
         //handle movement
         let moveDirection = new Phaser.Math.Vector2(0, 0)
@@ -76,7 +80,6 @@ class MoveState extends State {
         if(left.isDown) {
             moveDirection.x = -1
         }else if(right.isDown) {
-            //console.log("right pressed")
             moveDirection.x = 1
         }
 
@@ -88,8 +91,8 @@ class MoveState extends State {
         player.anims.play('idle-anim')
     }
 }
-/*
-class HurtState extends state {
+
+class HurtState extends State {
     enter(scene, player) {
         player.setVelocity(0)
         
@@ -97,9 +100,10 @@ class HurtState extends state {
 
         //recovery timer
         scene.time.delayedCall(player.hurtTimer, () => {
+            player.hurtBool = false
             this.StateMachine.transition('idle')
         })
     }
 }
-*/
+
 

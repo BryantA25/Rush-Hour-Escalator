@@ -10,7 +10,7 @@ class Play extends Phaser.Scene {
         //keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
 
         //important values
-        this.speed = 2
+        this.speed = 3
         this.gameover = false
         this.currentTime = 0
 
@@ -89,13 +89,15 @@ class Play extends Phaser.Scene {
 
     spawnObsticle(type, texture) {
         let shopstacle = new Obstacle(this, (Phaser.Math.Between(100, config.width-100)), -100, texture, type, this.speed)
-        console.log("atempted to spawn shopstacle at:"+shopstacle.x)
+        //console.log("atempted to spawn shopstacle at:"+shopstacle.x)
         this.obstacleGroup.add(shopstacle)
         
     }
 
     //activate hurt state in player
     obstacleCollision(){
+        console.log("Player collision with obstacle")
+        //this.player.hurtBool = false
 
     }
 
@@ -124,8 +126,14 @@ class Play extends Phaser.Scene {
         //console.log("added time")
 
         //make things happen after certain tiime
-        if(this.currentTime % 4 == 0 && this.currentTime < 16) { //spawn rate of one shopper every 3 seconds during the first 8 seconds alive
+        if(this.currentTime % 3 == 0 && this.currentTime < 16) { //spawn rate of one shopper every 3 seconds during the first 8 seconds alive
             this.spawnObsticle(0, 'shopper')
+        }
+        if(this.currentTime % 2 == 0 && this.currentTime >17 && this.currentTime < 30) {
+            this.spawnObsticle(0, 'shopper')
+        }
+        if(this.currentTime % 4 == 0 && this.currentTime >17 && this.currentTime < 30) {
+            this.spawnObsticle(0, 'shopper-pair')
         }
 
 
