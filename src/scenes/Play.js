@@ -3,24 +3,22 @@ class Play extends Phaser.Scene {
         super('playScene')
     }
 
-    init() {
-        this.speed = 2
-        this.gameover = false
-    }
-
     create() {
         //all temporary, delete later
         //this.title = this.add.text(10,10, "Play screen")
         //this.guide = this.add.text (10,30, "Press (UP) to go back to title")
         //keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
 
+        //important values
+        this.speed = 2
+        this.gameover = false
         this.currentTime = 0
 
         //add background
         this.escalator = this.add.tileSprite(0, 0, 640, 960, 'escalator').setOrigin(0, 0)
 
         //add player
-        this.player = new Player(this, config.width/2, config.height/2, 'player', 0, this.speed)
+        this.player = new Player(this, config.width/2, config.height/2, 'player', 0)
         
         //bottom of escalator
         let bottom = this.physics.add.sprite(config.width/2, config.height-60, 'bottom')//.setOrigin(0, 0)
@@ -80,15 +78,29 @@ class Play extends Phaser.Scene {
             this.gameoverGraphic = this.add.tileSprite(320, 200, 200, 100, 'gameover-graphic').setOrigin(0.5)
         })
 
+        //obstacle group
+        this.obstacleGroup = this.add.group({
+            runChildUpdate: true
+        })
+
+        //player obstacle collision
+        this.physics.add.collider(this.player, this.obstacleGroup, this.obstacleCollision)
     }
 
+    spawnObsticle(type, texture) {
+        let shopstacle = new Obstacle(this, (Phaser.Math.Between(100, config.width-100)), -100, texture, type, this.speed)
+        console.log("atempted to spawn shopstacle at:"+shopstacle.x)
+        this.obstacleGroup.add(shopstacle)
+        
+    }
+
+    //activate hurt state in player
+    obstacleCollision(){
+
+    }
 
     update() {
-        /*
-        if (Phaser.Input.Keyboard.JustDown(keyUP)) {
-            this.scene.start('titleScene')
-        }
-        */
+
 
         if(!this.gameover) {
             this.playerFSM.step()
@@ -112,6 +124,9 @@ class Play extends Phaser.Scene {
         //console.log("added time")
 
         //make things happen after certain tiime
+        if(this.currentTime % 4 == 0 && this.currentTime < 16) { //spawn rate of one shopper every 3 seconds during the first 8 seconds alive
+            this.spawnObsticle(0, 'shopper')
+        }
 
 
     }
