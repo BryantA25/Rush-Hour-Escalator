@@ -9,11 +9,24 @@ class Play extends Phaser.Scene {
         this.gameover = false
         this.currentTime = 0    //used for timer display and obstacle events
 
+        //background music
+        this.backgroundMusic
+        let musicChoice = Phaser.Math.Between(1,2)
+        
+        if(musicChoice == 1) {
+            this.backgroundMusic = this.sound.add('music-cat')
+        } else if (musicChoice == 2) {
+            this.backgroundMusic = this.sound.add('music-street')
+        }
+        
+        this.backgroundMusic.play()
+        this.backgroundMusic.loop = true
+
+        //this.backgroundMusic.loop = true
+        //this.backgroundMusic.play();
+
         //add background
         this.escalator = this.add.tileSprite(0, 0, 640, 960, 'escalator').setOrigin(0, 0)
-
-        //add player
-        this.player = new Player(this, config.width/2, config.height/2, 'player', 0)
         
         //bottom of escalator
         let bottom = this.physics.add.sprite(config.width/2, config.height-60, 'bottom')//.setOrigin(0, 0)
@@ -33,6 +46,9 @@ class Play extends Phaser.Scene {
         borderRight.body.setImmovable(true)
 
         this.borders = this.add.group([borderLeft, borderRight])
+
+        //add player
+        this.player = new Player(this, config.width/2, config.height/2, 'player', 0)
 
         //player border collision
         this.physics.add.collider(this.player, this.borders)
@@ -62,12 +78,14 @@ class Play extends Phaser.Scene {
 
         //player and bottom collision
         this.physics.add.collider(this.player, bottom, () => {
-            //game over
-            //console.log("lose")
+            //game over sequence
+            this.player.body.setSize(1, 1)
+            this.player.setVelocity(0)
+            this.player.anims.play('lose-anim')
+            this.sound.play('sfx-hurt')
             this.gameover = true
-            
-            //this.player.destroy()
             this.gameTimer.destroy()
+            
             this.add.text(320, 400, 'You lasted '+this.currentTime+' seconds', textConfig).setOrigin(0.5)
             this.add.text(320, 500, 'Press (R) to restart', textConfig).setOrigin(0.5)
             this.add.text(320, 575, 'Press (M) to return to main menu', textConfig).setOrigin(0.5)
@@ -92,13 +110,11 @@ class Play extends Phaser.Scene {
 
     //activate hurt state in player
     obstacleCollision(player){
-        console.log("Player collision with obstacle")
-        player.toggleHurt()    //Type error: cannot read properties of undefned 
-
+        //console.log("Player collision with obstacle")
+        player.toggleHurt()
     }
 
     update() {
-
 
         if(!this.gameover) {
             this.playerFSM.step()
@@ -107,10 +123,12 @@ class Play extends Phaser.Scene {
         }
 
         if (this.gameover && Phaser.Input.Keyboard.JustDown(keyRESET)) {
+            this.sound.stopAll()
             this.scene.restart()
         }
 
         if(this.gameover && Phaser.Input.Keyboard.JustDown(keyMENU)) {
+            this.sound.stopAll()
             this.scene.start("titleScene")
         }
 
@@ -125,11 +143,18 @@ class Play extends Phaser.Scene {
         if(this.currentTime % 3 == 0 && this.currentTime < 16) { //spawn rate of one shopper every 3 seconds during the first 8 seconds alive
             this.spawnObsticle(0, 'shopper')
         }
-        if(this.currentTime % 2 == 0 && this.currentTime >17 && this.currentTime < 30) {
+        if(this.currentTime % 2 == 0 && this.currentTime>17 && this.currentTime<30) {
             this.spawnObsticle(0, 'shopper')
         }
-        if(this.currentTime % 4 == 0 && this.currentTime >17 && this.currentTime < 30) {
-            this.spawnObsticle(0, 'shopper-pair')
+        if(this.currentTime % 4 == 0 && this.currentTime >17){// && this.currentTime < 30) {
+            this.spawnObsticle(0, 'shopper-bag')
+        }
+        if(this.currentTime % 2 == 0 && this.currentTime>30) {
+            this.spawnObsticle(0, 'shopper')
+            this.spawnObsticle(0, 'shopper')
+        }
+        if(this.currentTime > 30) {
+            this.speed = 3.5
         }
 
 

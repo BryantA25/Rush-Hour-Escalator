@@ -23,7 +23,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
     toggleHurt() {
         this.hurtBool = !this.hurtBool
-        console.log("toggled hurt to "+this.hurtBool)
+        //console.log("toggled hurt to "+this.hurtBool)
     }
 }
 
@@ -88,20 +88,23 @@ class MoveState extends State {
         player.setVelocity(player.playerVelocity * moveDirection.x, player.playerVelocity * moveDirection.y)
 
         //movement animation
-        player.anims.play('idle-anim')
+        player.anims.play('move-anim', true)
     }
 }
 
 class HurtState extends State {
     enter(scene, player) {
         player.setVelocity(0)
-        
+        player.anims.play('hurt-anim')
         player.setVelocityY(player.playerVelocity*2)
+        scene.sound.play('sfx-punch')
 
         //recovery timer
         scene.time.delayedCall(player.hurtTimer, () => {
             player.hurtBool = false
-            this.stateMachine.transition('idle')
+            if(!scene.gameover) {
+                this.stateMachine.transition('idle')
+            }
             return
         })
     }

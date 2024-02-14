@@ -1,4 +1,13 @@
-//
+/*
+Name: Bryant Aberin
+Game Title: Rush Hour Escalator
+Time Spent: __ Hours
+Creative Tilt Justification
+
+(*)Does your game do something technically interesting?
+
+(*)Does your game have a great visual style?
+*/
 
 'use strict'
 
