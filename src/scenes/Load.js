@@ -4,6 +4,11 @@ class Load extends Phaser.Scene {
     }
 
     preload() {
+        /*
+        this.load.image('loading', './assets/img/loading.png')
+        let loadingBar = this.add.image(0,0,'loading').setOrigin(0,0)
+        */
+       
         this.load.path = './assets/atlas/'
         this.load.atlas('player', 'player.png', 'player.json')
 
@@ -47,10 +52,13 @@ class Load extends Phaser.Scene {
         this.load.path = './assets/sounds/'
         this.load.audio('sfx-punch', 'punch.mp3')
         this.load.audio('sfx-hurt', 'ough.mp3')
+        this.load.audio('sfx-paper', 'pageturn.mp3')
+        this.load.audio('sfx-ding', 'ding.mp3')
     }
 
     create() {
-        this.title = this.add.text(10,10, "Loading screen screen")
+        //this.title = this.add.text(10,10, "Loading screen screen")
+
 
         //player animations
 

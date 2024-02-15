@@ -124,11 +124,13 @@ class Play extends Phaser.Scene {
 
         if (this.gameover && Phaser.Input.Keyboard.JustDown(keyRESET)) {
             this.sound.stopAll()
+            this.sound.play('sfx-ding')
             this.scene.restart()
         }
 
         if(this.gameover && Phaser.Input.Keyboard.JustDown(keyMENU)) {
             this.sound.stopAll()
+            this.sound.play('sfx-paper')
             this.scene.start("titleScene")
         }
 

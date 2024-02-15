@@ -13,6 +13,7 @@ class Credits extends Phaser.Scene {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyUP)) {
+            this.sound.play('sfx-paper')
             this.scene.start('titleScene')
         }
     }

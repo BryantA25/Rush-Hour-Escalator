@@ -22,12 +22,15 @@ class Title extends Phaser.Scene {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyUP)) {
+            this.sound.play('sfx-ding')
             this.scene.start('playScene')
         }
         if (Phaser.Input.Keyboard.JustDown(keyLEFT)){
+            this.sound.play('sfx-paper')
             this.scene.start('tutorialScene')
         }
         if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+            this.sound.play('sfx-paper')
             this.scene.start('creditsScene')
         }
     }
