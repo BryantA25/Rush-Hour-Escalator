@@ -35,6 +35,9 @@ class Load extends Phaser.Scene {
         this.load.image('bottom', 'bottom.png')
         this.load.image('gameover-graphic', 'gameover.png')
 
+        this.load.image('tutorial', 'tutorial.png')
+        this.load.image('title', 'title.png')
+
         //load music
         this.load.path = './assets/music/'
         this.load.audio('music-cat', 'Hep Cats.mp3')
