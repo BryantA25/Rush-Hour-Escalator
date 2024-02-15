@@ -31,7 +31,7 @@ class Load extends Phaser.Scene {
             frameHeight: 180
         })
         this.load.spritesheet('shopper-bag', 'shopper-bag.png', {
-            frameWidth: 130,
+            frameWidth: 150,
             frameHeight: 180
         })
 

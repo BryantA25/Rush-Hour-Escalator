@@ -91,7 +91,7 @@ class Play extends Phaser.Scene {
             this.add.text(320, 400, 'You lasted '+this.currentTime+' seconds', textConfig).setOrigin(0.5)
             this.add.text(320, 500, 'Press (R) to restart', textConfig).setOrigin(0.5)
             this.add.text(320, 575, 'Press (M) to return to main menu', textConfig).setOrigin(0.5)
-            this.gameoverGraphic = this.add.tileSprite(320, 200, 200, 100, 'gameover-graphic').setOrigin(0.5)
+            this.gameoverGraphic = this.add.tileSprite(320, 200, 400, 200, 'gameover-graphic').setOrigin(0.5)
         })
 
         //obstacle group
@@ -157,8 +157,8 @@ class Play extends Phaser.Scene {
             this.spawnObsticle(0, 'shopper')
             this.spawnObsticle(0, 'shopper')
         }
-        if(this.currentTime > 30) {
-            this.speed = 3.5
+        if(this.currentTime > 30 && this.currentTime % 5 == 0) {
+            this.spawnObsticle(2, 'shopper-pair')
         }
 
 
