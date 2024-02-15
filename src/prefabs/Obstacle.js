@@ -11,10 +11,8 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         //set up physics
         this.parentScene.add.existing(this)
         this.parentScene.physics.add.existing(this)
-        //this.setVelocityY(1)
         this.setImmovable()
-        //this.newObsticle = true
-
+        
         if(type == 0) { //standard shopper
             this.body.setSize(50, 100)
             //console.log("set obstacle body to standard shopper")

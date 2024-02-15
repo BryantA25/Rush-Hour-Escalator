@@ -158,7 +158,7 @@ class Play extends Phaser.Scene {
             this.spawnObsticle(0, 'shopper')
         }
         if(this.currentTime > 30 && this.currentTime % 5 == 0) {
-            this.spawnObsticle(2, 'shopper-pair')
+            //this.spawnObsticle(2, 'shopper-pair')
         }
 
 
