@@ -8,7 +8,7 @@ class Load extends Phaser.Scene {
         this.load.image('loading', './assets/img/loading.png')
         let loadingBar = this.add.image(0,0,'loading').setOrigin(0,0)
         */
-       
+
         this.load.path = './assets/atlas/'
         this.load.atlas('player', 'player.png', 'player.json')
 
@@ -42,6 +42,7 @@ class Load extends Phaser.Scene {
 
         this.load.image('tutorial', 'tutorial.png')
         this.load.image('title', 'title.png')
+        this.load.image('credits', 'credits.png')
 
         //load music
         this.load.path = './assets/music/'
