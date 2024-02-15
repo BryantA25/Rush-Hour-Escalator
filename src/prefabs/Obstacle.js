@@ -16,12 +16,12 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         //this.newObsticle = true
 
         if(type == 0) { //standard shopper
-            this.body.setSize(100, 110)
+            this.body.setSize(70, 100)
             //console.log("set obstacle body to standard shopper")
         } else if (type == 1) { //shopper bag
-            this.body.setSize(110, 110)
+            this.body.setSize(80, 100)
         } else if (type == 2) { //shopper pair
-            this.body.setSize(130, 130)
+            this.body.setSize(100, 120)
         }
 
     }
