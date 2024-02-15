@@ -55,9 +55,11 @@ class Play extends Phaser.Scene {
 
         let textConfig = {
             //fontFamily: 'Courier',
+            //backgroundColor: '#F8FF1D',
             fontSize: '30px',
-            //color: '',
+            color: '#000000',
             align: 'right',
+            strokeThickness: 10,
             padding: {
                 top: 5,
                 bottom: 5
@@ -149,7 +151,7 @@ class Play extends Phaser.Scene {
             this.spawnObsticle(0, 'shopper')
         }
         if(this.currentTime % 4 == 0 && this.currentTime >17){// && this.currentTime < 30) {
-            this.spawnObsticle(0, 'shopper-bag')
+            this.spawnObsticle(1, 'shopper-bag')
         }
         if(this.currentTime % 2 == 0 && this.currentTime>30) {
             this.spawnObsticle(0, 'shopper')
